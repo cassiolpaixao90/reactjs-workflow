@@ -1,10 +1,14 @@
 {
-  "presets": ["env", "stage-0", "react"],
+  "presets": ["env", "stage-0", "react", "flow"],
   "plugins": [
-    ["transform-runtime", {
-      "helpers": false,
-      "polyfill": false,
-      "regenerator": true
-    }]
-  ]
+    [
+      "transform-runtime",
+      {
+        "helpers": false,
+        "polyfill": false,
+        "regenerator": true
+      }
+    ]
+  ],
+  "retainLines": true
 }

@@ -1,5 +1,5 @@
 const shell = require('shelljs');
-const { messageSuccess, messageProcessing } = require('./message.tools');
+const { messageSuccess, messageProcessing } = require('./tools.message');
 
 if (process.env.NODE_ENV === 'development') {
   console.log(messageProcessing('generating .env file in mode dev...'));

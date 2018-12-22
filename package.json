@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "flow start",
+    "stop": "flow stop",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,8 +20,11 @@
   },
   "homepage": "https://github.com/cassiolpaixao90/reactjs-workflow#readme",
   "devDependencies": {
+    "babel-eslint": "10.0.1",
+    "babel-preset-flow": "6.23.0",
     "chalk": "2.4.1",
     "express": "4.16.4",
+    "flow-bin": "0.42.0",
     "ip": "1.1.5",
     "shelljs": "0.8.3"
   }
