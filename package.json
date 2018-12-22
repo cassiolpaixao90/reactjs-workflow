@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "flow start",
-    "stop": "flow stop",
+    "start": "node server",
+    "stop": "stop",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,11 +21,26 @@
   "homepage": "https://github.com/cassiolpaixao90/reactjs-workflow#readme",
   "devDependencies": {
     "babel-eslint": "10.0.1",
-    "babel-preset-flow": "6.23.0",
     "chalk": "2.4.1",
+    "dotenv": "6.2.0",
+    "eslint": "5.10.0",
+    "eslint-config-airbnb": "17.1.0",
+    "eslint-config-prettier": "3.3.0",
+    "eslint-plugin-import": "2.14.0",
+    "eslint-plugin-jsx-a11y": "6.1.2",
+    "eslint-plugin-prettier": "3.0.0",
+    "eslint-plugin-react": "7.11.1",
     "express": "4.16.4",
-    "flow-bin": "0.42.0",
+    "html-webpack-plugin": "3.2.0",
     "ip": "1.1.5",
-    "shelljs": "0.8.3"
-  }
+    "mini-css-extract-plugin": "0.5.0",
+    "prettier": "1.15.3",
+    "shelljs": "0.8.3",
+    "webpack": "4.17.1",
+    "webpack-bundle-analyzer": "2.13.1",
+    "webpack-dev-middleware": "3.2.0",
+    "webpack-hot-middleware": "2.22.3",
+    "compression": "1.7.3"
+  },
+  "dependencies": {}
 }

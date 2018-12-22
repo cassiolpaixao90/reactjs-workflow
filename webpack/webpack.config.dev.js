@@ -1,10 +1,9 @@
-import path from 'path';
-import webpack from 'webpack';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import dotenv from 'dotenv';
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
+const dotenv = require('dotenv');
 
 const env = dotenv.config().parsed;
-
 const envKeys = Object.keys(env).reduce((prev, next) => {
   prev[`process.env.${next}`] = JSON.stringify(env[next]);
   return prev;
@@ -12,22 +11,18 @@ const envKeys = Object.keys(env).reduce((prev, next) => {
 
 module.exports = {
   resolve: {
-    extensions: ['*', '.js', '.jsx', '.json']
+    extensions: ['*', '.js', '.jsx', '.json'],
   },
   devtool: 'cheap-module-eval-source-map',
   entry: {
-    main: [
-      'react-hot-loader/patch',
-      'webpack-hot-middleware/client?reload=true',
-      './src/app.js'
-    ]
+    main: ['react-hot-loader/patch', 'webpack-hot-middleware/client?reload=true', './src/app.js'],
   },
   target: 'web',
   mode: 'development',
   output: {
     filename: '[name]-bundle.js',
     path: path.resolve(__dirname, '../dist'),
-    publicPath: '/'
+    publicPath: '/',
   },
   module: {
     rules: [
@@ -36,22 +31,22 @@ module.exports = {
         use: [
           {
             loader: 'expose-loader',
-            options: 'jQuery'
+            options: 'jQuery',
           },
           {
             loader: 'expose-loader',
-            options: '$'
-          }
-        ]
+            options: '$',
+          },
+        ],
       },
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        use: ['babel-loader']
+        use: ['babel-loader'],
       },
       {
         test: /\.eot(\?v=\d+.\d+.\d+)?$/,
-        use: ['file-loader']
+        use: ['file-loader'],
       },
       {
         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
@@ -60,10 +55,10 @@ module.exports = {
             loader: 'url-loader',
             options: {
               limit: 10000,
-              mimetype: 'application/font-woff'
-            }
-          }
-        ]
+              mimetype: 'application/font-woff',
+            },
+          },
+        ],
       },
       {
         test: /\.[ot]tf(\?v=\d+.\d+.\d+)?$/,
@@ -72,10 +67,10 @@ module.exports = {
             loader: 'url-loader',
             options: {
               limit: 10000,
-              mimetype: 'application/octet-stream'
-            }
-          }
-        ]
+              mimetype: 'application/octet-stream',
+            },
+          },
+        ],
       },
       {
         test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
@@ -84,10 +79,10 @@ module.exports = {
             loader: 'url-loader',
             options: {
               limit: 10000,
-              mimetype: 'image/svg+xml'
-            }
-          }
-        ]
+              mimetype: 'image/svg+xml',
+            },
+          },
+        ],
       },
       {
         test: /\.(jpe?g|png|gif|ico)$/i,
@@ -95,10 +90,10 @@ module.exports = {
           {
             loader: 'file-loader',
             options: {
-              name: '[name].[ext]'
-            }
-          }
-        ]
+              name: '[name].[ext]',
+            },
+          },
+        ],
       },
       {
         test: /(\.css|\.scss|\.sass)$/,
@@ -107,35 +102,28 @@ module.exports = {
           {
             loader: 'css-loader',
             options: {
-              sourceMap: true
-            }
+              sourceMap: true,
+            },
           },
           {
             loader: 'postcss-loader',
             options: {
               plugins: () => [require('autoprefixer')],
-              sourceMap: true
-            }
+              sourceMap: true,
+            },
           },
           {
             loader: 'sass-loader',
             options: {
               includePaths: [path.resolve(__dirname, 'src', 'scss')],
-              sourceMap: true
-            }
-          }
-        ]
-      }
-    ]
+              sourceMap: true,
+            },
+          },
+        ],
+      },
+    ],
   },
   plugins: [
-    // new webpack.HotModuleReplacementPlugin(),
-    // new webpack.DefinePlugin({
-    //   "process.env": {
-    //     NODE_ENV: JSON.stringify("development")
-    //   }
-    // }),
-    // new HardSourceWebpackPlugin(),
     new webpack.DefinePlugin(envKeys),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
@@ -143,14 +131,9 @@ module.exports = {
       template: 'src/index.ejs',
       minify: {
         removeComments: true,
-        collapseWhitespace: true
+        collapseWhitespace: true,
       },
-      inject: true
-    })
-  ]
-  // externals: {
-  //   config: JSON.stringify({
-  //     apiUrl: "http://localhost:3001/api"
-  //   })
-  // }
+      inject: true,
+    }),
+  ],
 };

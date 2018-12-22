@@ -1,12 +1,10 @@
-import webpack from "webpack";
-import HtmlWebpackPlugin from "html-webpack-plugin";
-import MiniCssExtractPlugin from "mini-css-extract-plugin";
-import path from "path";
-import dotenv from "dotenv";
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const path = require('path');
+const dotenv = require('dotenv');
 
 const env = dotenv.config().parsed;
-
-// reduce it to a nice object, the same as before
 const envKeys = Object.keys(env).reduce((prev, next) => {
   prev[`process.env.${next}`] = JSON.stringify(env[next]);
   return prev;
@@ -14,30 +12,30 @@ const envKeys = Object.keys(env).reduce((prev, next) => {
 
 const GLOBALS = {
   envKeys,
-  __DEV__: false
+  __DEV__: false,
 };
 
 export default {
   resolve: {
-    extensions: ["*", ".js", ".jsx", ".json"]
+    extensions: ['*', '.js', '.jsx', '.json'],
   },
-  devtool: "source-map",
-  entry: "./src/app.js",
-  target: "web",
-  mode: "production",
+  devtool: 'source-map',
+  entry: './src/app.js',
+  target: 'web',
+  mode: 'production',
   output: {
-    path: path.resolve(__dirname, "../dist"),
-    publicPath: "/",
-    filename: "[name].[contenthash].js"
+    path: path.resolve(__dirname, '../dist'),
+    publicPath: '/',
+    filename: '[name].[contenthash].js',
   },
   plugins: [
     new webpack.DefinePlugin(GLOBALS),
     new MiniCssExtractPlugin({
-      filename: "[name].[contenthash].css"
+      filename: '[name].[contenthash].css',
     }),
     new HtmlWebpackPlugin({
-      template: "src/index.ejs",
-      favicon: "src/favicon.ico",
+      template: 'src/index.ejs',
+      favicon: 'src/favicon.ico',
       minify: {
         removeComments: true,
         collapseWhitespace: true,
@@ -48,119 +46,119 @@ export default {
         keepClosingSlash: true,
         minifyJS: true,
         minifyCSS: true,
-        minifyURLs: true
+        minifyURLs: true,
       },
       inject: true,
-      trackJSToken: ""
-    })
+      trackJSToken: '',
+    }),
   ],
   module: {
     rules: [
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        use: ["babel-loader"]
+        use: ['babel-loader'],
       },
       {
-        test: require.resolve("jquery"),
+        test: require.resolve('jquery'),
         use: [
           {
-            loader: "expose-loader",
-            options: "jQuery"
+            loader: 'expose-loader',
+            options: 'jQuery',
           },
           {
-            loader: "expose-loader",
-            options: "$"
-          }
-        ]
+            loader: 'expose-loader',
+            options: '$',
+          },
+        ],
       },
       {
         test: /\.eot(\?v=\d+.\d+.\d+)?$/,
         use: [
           {
-            loader: "url-loader",
+            loader: 'url-loader',
             options: {
-              name: "[name].[ext]"
-            }
-          }
-        ]
+              name: '[name].[ext]',
+            },
+          },
+        ],
       },
       {
         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
         use: [
           {
-            loader: "url-loader",
+            loader: 'url-loader',
             options: {
               limit: 10000,
-              mimetype: "application/font-woff",
-              name: "[name].[ext]"
-            }
-          }
-        ]
+              mimetype: 'application/font-woff',
+              name: '[name].[ext]',
+            },
+          },
+        ],
       },
       {
         test: /\.[ot]tf(\?v=\d+.\d+.\d+)?$/,
         use: [
           {
-            loader: "url-loader",
+            loader: 'url-loader',
             options: {
               limit: 10000,
-              mimetype: "application/octet-stream",
-              name: "[name].[ext]"
-            }
-          }
-        ]
+              mimetype: 'application/octet-stream',
+              name: '[name].[ext]',
+            },
+          },
+        ],
       },
       {
         test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
         use: [
           {
-            loader: "url-loader",
+            loader: 'url-loader',
             options: {
               limit: 10000,
-              mimetype: "image/svg+xml",
-              name: "[name].[ext]"
-            }
-          }
-        ]
+              mimetype: 'image/svg+xml',
+              name: '[name].[ext]',
+            },
+          },
+        ],
       },
       {
         test: /\.(jpe?g|png|gif|ico)$/i,
         use: [
           {
-            loader: "file-loader",
+            loader: 'file-loader',
             options: {
-              name: "[name].[ext]"
-            }
-          }
-        ]
+              name: '[name].[ext]',
+            },
+          },
+        ],
       },
       {
         test: /(\.css|\.scss|\.sass)$/,
         use: [
           MiniCssExtractPlugin.loader,
           {
-            loader: "css-loader",
+            loader: 'css-loader',
             options: {
-              sourceMap: true
-            }
+              sourceMap: true,
+            },
           },
           {
-            loader: "postcss-loader",
+            loader: 'postcss-loader',
             options: {
-              plugins: () => [require("cssnano"), require("autoprefixer")],
-              sourceMap: true
-            }
+              plugins: () => [require('cssnano'), require('autoprefixer')],
+              sourceMap: true,
+            },
           },
           {
-            loader: "sass-loader",
+            loader: 'sass-loader',
             options: {
-              includePaths: [path.resolve(__dirname, "src", "scss")],
-              sourceMap: true
-            }
-          }
-        ]
-      }
-    ]
-  }
+              includePaths: [path.resolve(__dirname, 'src', 'scss')],
+              sourceMap: true,
+            },
+          },
+        ],
+      },
+    ],
+  },
 };
