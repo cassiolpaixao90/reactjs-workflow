@@ -49,7 +49,6 @@ export default {
         minifyURLs: true,
       },
       inject: true,
-      trackJSToken: '',
     }),
   ],
   module: {

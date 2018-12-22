@@ -17,6 +17,7 @@
   "plugins": ["react", "jsx-a11y", "import"],
   "extends": ["airbnb", "prettier/react"],
   "rules": {
+    "consistent-return": 0,
     "import/no-extraneous-dependencies": 0,
     "no-unused-vars": 0,
     "react/jsx-filename-extension": [

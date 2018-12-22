@@ -7,8 +7,10 @@ function createWebpackMiddleware(compiler, publicPath) {
   return webpackDevMiddleware(compiler, {
     logLevel: 'warn',
     publicPath,
-    silent: true,
-    stats: 'errors-only',
+    hot: true,
+    historyApiFallback: true,
+    overlay: true,
+    stats: { colors: true },
   });
 }
 

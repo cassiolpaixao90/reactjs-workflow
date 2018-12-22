@@ -123,6 +123,11 @@ module.exports = {
       },
     ],
   },
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
+  },
   plugins: [
     new webpack.DefinePlugin(envKeys),
     new webpack.HotModuleReplacementPlugin(),
