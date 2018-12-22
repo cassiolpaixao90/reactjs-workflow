@@ -16,5 +16,10 @@
   "bugs": {
     "url": "https://github.com/cassiolpaixao90/reactjs-workflow/issues"
   },
-  "homepage": "https://github.com/cassiolpaixao90/reactjs-workflow#readme"
+  "homepage": "https://github.com/cassiolpaixao90/reactjs-workflow#readme",
+  "devDependencies": {
+    "chalk": "2.4.1",
+    "express": "4.16.4",
+    "ip": "1.1.5"
+  }
 }
