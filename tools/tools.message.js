@@ -9,5 +9,5 @@ module.exports = {
   messageError,
   messageSuccess,
   messageWarning,
-  messageProcessing
+  messageProcessing,
 };

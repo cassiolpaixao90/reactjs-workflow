@@ -4,10 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "preinstall": "node tools/tools.node-version.js && cross-env NODE_ENV=development node tools/tools.generate-env.js",
+    "preinstall": "node tools/tools.node-version.js",
+    "postinstall": "cross-env NODE_ENV=development node tools/tools.generate-env.js",
     "start": "cross-env NODE_ENV=development node server",
-    "stop": "stop",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prebuild": "npm run build:clean",
+    "build": "cross-env NODE_ENV=production webpack --config webpack/webpack.config.prod.js --color -p --progress --hide-modules --display-optimization-bailout",
+    "build:clean": "rimraf ./build"
   },
   "repository": {
     "type": "git",
