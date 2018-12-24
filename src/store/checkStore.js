@@ -11,7 +11,7 @@ const checkStore = (store) => {
   };
   invariant(
     conformsTo(store, shape),
-    '(app/utils...) injectors: Expected a valid redux store'
+    '(app/store...) injectors: Expected a valid redux store'
   );
 };
 
