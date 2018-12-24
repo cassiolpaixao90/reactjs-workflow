@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import '@babel/polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -15,11 +16,20 @@ const openSansObserver = new FontFaceObserver('Open Sans', {});
 openSansObserver.load().then(() => {
   document.body.classList.add('fontLoaded');
 });
+=======
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { ConnectedRouter } from 'connected-react-router/immutable';
+import { Provider } from 'react-redux';
+import history from './utils/utils.history';
+import configureStore from './store';
+>>>>>>> acbd357a41897509ca1d49274154272662f29a17
 
 const initialState = {};
 const store = configureStore(initialState, history);
 const MOUNT_NODE = document.getElementById('app');
 
+<<<<<<< HEAD
 const render = (messages) => {
   ReactDOM.render(
     <Provider store={store}>
@@ -56,3 +66,14 @@ if (!window.Intl) {
 if (process.env.NODE_ENV === 'production') {
   require('offline-plugin/runtime').install();
 }
+=======
+ReactDOM.render(
+  <Provider store={store}>
+    <ConnectedRouter history={history}>
+      <React.Fragment>opa</React.Fragment>
+    </ConnectedRouter>
+  </Provider>,
+  MOUNT_NODE,
+  document.getElementById('app'),
+);
+>>>>>>> acbd357a41897509ca1d49274154272662f29a17

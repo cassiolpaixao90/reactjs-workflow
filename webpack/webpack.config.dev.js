@@ -17,7 +17,11 @@ module.exports = {
   },
   devtool: 'cheap-module-eval-source-map',
   entry: {
-    main: ['react-hot-loader/patch', 'webpack-hot-middleware/client?reload=true', './src/app.js'],
+    main: [
+      'react-hot-loader/patch',
+      'webpack-hot-middleware/client?reload=true',
+      './src/app.js',
+    ],
   },
   target: 'web',
   mode: 'development',
