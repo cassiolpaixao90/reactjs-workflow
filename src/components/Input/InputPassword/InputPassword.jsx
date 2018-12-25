@@ -1,16 +1,15 @@
+/* eslint-disable no-mixed-operators */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty, isFunction } from 'lodash';
 import cn from 'classnames';
-
 import Label from '../Label';
 import InputDescription from '../InputDescription';
 import InputErrors from '../InputErrors';
-import InputEmail from '../InputEmail';
 import validateInput from '../../../validators/validators.input';
 import './styles.css';
 
-class InputEmailWithErrors extends React.Component {
+class InputPassword extends React.Component {
   state = { errors: [], hasInitialValue: false };
 
   componentDidMount() {
@@ -38,11 +37,7 @@ class InputEmailWithErrors extends React.Component {
 
   handleBlur = ({ target }) => {
     if (!isEmpty(target.value) || this.state.hasInitialValue) {
-      const errors = validateInput(
-        target.value,
-        this.props.validations,
-        'email'
-      );
+      const errors = validateInput(target.value, this.props.validations);
       this.setState({ errors, hasInitialValue: true });
     }
   };
@@ -55,82 +50,93 @@ class InputEmailWithErrors extends React.Component {
       errorsClassName,
       errorsStyle,
       inputClassName,
-      inputDescription,
       inputDescriptionClassName,
       inputDescriptionStyle,
       inputStyle,
-      label,
       labelClassName,
       labelStyle,
       name,
-      noErrorsDescription,
-      onBlur,
       onChange,
       onFocus,
       placeholder,
       style,
       tabIndex,
       value,
+      height,
     } = this.props;
-    const handleBlur = isFunction(onBlur) ? onBlur : this.handleBlur;
+    const handleBlur = isFunction(this.props.onBlur)
+      ? this.props.onBlur
+      : this.handleBlur;
 
-    let spacer = !isEmpty(inputDescription) ? (
-      <div className="spacer" />
-    ) : (
-      <div />
+    const eyeColor = this.state.showPassword
+      ? { color: 'black' }
+      : { color: '#9EA7B8' };
+
+    const invariant = cn(
+      'form-group',
+      this.props.customBootstrapClass,
+      !isEmpty(this.props.className) && this.props.className
     );
 
-    if (!noErrorsDescription && !isEmpty(this.state.errors)) {
-      spacer = <div />;
-    }
+    const inputHeight = height === 'default' ? 'default' : `input-${height}`;
 
     return (
-      <div
-        className={cn(
-          'inputEmailWithErrors',
-          this.props.customBootstrapClass,
-          !isEmpty(this.props.className) && this.props.className
-        )}
-        style={style}
-      >
+      <div className={invariant} style={style}>
         <Label
           className={labelClassName}
           htmlFor={name}
-          message={label}
+          message={this.props.label}
           style={labelStyle}
         />
-        <InputEmail
+
+        <input
+          autoComplete="new-password"
           autoFocus={autoFocus}
-          className={inputClassName}
+          className={cn(
+            'form-control',
+            inputHeight,
+            !deactivateErrorHighlight
+              && !isEmpty(this.state.errors)
+              && 'is-invalid',
+            !isEmpty(inputClassName) && inputClassName
+          )}
           disabled={disabled}
-          deactivateErrorHighlight={deactivateErrorHighlight}
-          error={!isEmpty(this.state.errors)}
+          id={name}
           name={name}
           onBlur={handleBlur}
           onChange={onChange}
           onFocus={onFocus}
           placeholder={placeholder}
-          style={inputStyle}
+          style={style}
           tabIndex={tabIndex}
+          type={(!this.state.showPassword && 'password') || 'text'}
           value={value}
         />
+        <div className="iconEyeWrapper">
+          <div
+            className="iconEyeSubWrapper"
+            onClick={this.handleClick}
+            style={eyeColor}
+          >
+            <i className="fa fa-eye" />
+          </div>
+        </div>
         <InputDescription
           className={inputDescriptionClassName}
-          message={inputDescription}
+          message={this.props.inputDescription}
           style={inputDescriptionStyle}
         />
         <InputErrors
           className={errorsClassName}
-          errors={(!noErrorsDescription && this.state.errors) || []}
+          errors={this.state.errors}
           style={errorsStyle}
         />
-        {spacer}
       </div>
     );
   }
 }
 
-InputEmailWithErrors.defaultProps = {
+InputPassword.defaultProps = {
   autoFocus: false,
   className: '',
   customBootstrapClass: 'col-md-6',
@@ -150,14 +156,14 @@ InputEmailWithErrors.defaultProps = {
   label: '',
   labelClassName: '',
   labelStyle: {},
-  noErrorsDescription: false,
   placeholder: '',
   style: {},
   tabIndex: '0',
   validations: {},
+  height: 'default',
 };
 
-InputEmailWithErrors.propTypes = {
+InputPassword.propTypes = {
   autoFocus: PropTypes.bool,
   className: PropTypes.string,
   customBootstrapClass: PropTypes.string,
@@ -190,7 +196,6 @@ InputEmailWithErrors.propTypes = {
   labelClassName: PropTypes.string,
   labelStyle: PropTypes.object,
   name: PropTypes.string.isRequired,
-  noErrorsDescription: PropTypes.bool,
   onBlur: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   onChange: PropTypes.func.isRequired,
   onFocus: PropTypes.func,
@@ -199,6 +204,7 @@ InputEmailWithErrors.propTypes = {
   tabIndex: PropTypes.string,
   validations: PropTypes.object,
   value: PropTypes.string.isRequired,
+  height: PropTypes.string,
 };
 
-export default InputEmailWithErrors;
+export default InputPassword;

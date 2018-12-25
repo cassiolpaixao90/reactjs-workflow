@@ -1,54 +1,48 @@
-/* eslint-disable no-mixed-operators */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty, isFunction } from 'lodash';
 import cn from 'classnames';
+
 import Label from '../Label';
 import InputDescription from '../InputDescription';
 import InputErrors from '../InputErrors';
-import InputPassword from '../InputPassword';
+
 import validateInput from '../../../validators/validators.input';
 import './styles.css';
 
-class InputPasswordWithErrors extends React.Component {
+class InputEmail extends React.Component {
   state = { errors: [], hasInitialValue: false };
 
   componentDidMount() {
     const { value, errors } = this.props;
 
-    // Prevent the input from displaying an error when the user enters and leaves without filling it
     if (!isEmpty(value)) {
       this.setState({ hasInitialValue: true });
     }
 
-    // Display input error if it already has some
     if (!isEmpty(errors)) {
       this.setState({ errors });
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    // Show required error if the input's value is received after the compo is mounted
     if (!isEmpty(nextProps.value) && !this.state.hasInitialValue) {
       this.setState({ hasInitialValue: true });
     }
 
-    // Check if errors have been updated during validations
     if (nextProps.didCheckErrors !== this.props.didCheckErrors) {
-      // Remove from the state the errors that have already been set
       const errors = isEmpty(nextProps.errors) ? [] : nextProps.errors;
       this.setState({ errors });
     }
   }
 
-  /**
-   * Set the errors depending on the validations given to the input
-   * @param  {Object} target
-   */
   handleBlur = ({ target }) => {
-    // Prevent from displaying error if the input is initially isEmpty
     if (!isEmpty(target.value) || this.state.hasInitialValue) {
-      const errors = validateInput(target.value, this.props.validations);
+      const errors = validateInput(
+        target.value,
+        this.props.validations,
+        'email'
+      );
       this.setState({ errors, hasInitialValue: true });
     }
   };
@@ -61,69 +55,93 @@ class InputPasswordWithErrors extends React.Component {
       errorsClassName,
       errorsStyle,
       inputClassName,
+      inputDescription,
       inputDescriptionClassName,
       inputDescriptionStyle,
       inputStyle,
+      label,
       labelClassName,
       labelStyle,
       name,
+      noErrorsDescription,
+      onBlur,
       onChange,
       onFocus,
       placeholder,
       style,
       tabIndex,
       value,
+      height,
     } = this.props;
-    const handleBlur = isFunction(this.props.onBlur)
-      ? this.props.onBlur
-      : this.handleBlur;
+    const handleBlur = isFunction(onBlur) ? onBlur : this.handleBlur;
+
+    let spacer = !isEmpty(inputDescription) ? (
+      <div className="spacer" />
+    ) : (
+      <div />
+    );
+
+    if (!noErrorsDescription && !isEmpty(this.state.errors)) {
+      spacer = <div />;
+    }
+
+    const inputHeight = height === 'default' ? 'default' : `input-${height}`;
 
     return (
       <div
         className={cn(
-          'inputPasswordWithErrors',
+          'form-group',
           this.props.customBootstrapClass,
-          !isEmpty(this.props.className) && this.props.className,
+          !isEmpty(this.props.className) && this.props.className
         )}
         style={style}
       >
         <Label
           className={labelClassName}
           htmlFor={name}
-          message={this.props.label}
+          message={label}
           style={labelStyle}
         />
-        <InputPassword
+
+        <input
           autoFocus={autoFocus}
-          className={inputClassName}
+          className={cn(
+            'form-control',
+            inputHeight,
+            !deactivateErrorHighlight && this.state.errors && 'is-invalid',
+            !deactivateErrorHighlight
+              && this.state.errors
+              && this.state.isFocused
+          )}
           disabled={disabled}
-          deactivateErrorHighlight={deactivateErrorHighlight}
-          error={!isEmpty(this.state.errors)}
+          id={name}
           name={name}
-          onBlur={handleBlur}
+          onBlur={this.handleBlur}
           onChange={onChange}
-          onFocus={onFocus}
+          onFocus={this.handleFocus}
           placeholder={placeholder}
-          style={inputStyle}
           tabIndex={tabIndex}
+          type="email"
           value={value}
         />
+
         <InputDescription
           className={inputDescriptionClassName}
-          message={this.props.inputDescription}
+          message={inputDescription}
           style={inputDescriptionStyle}
         />
         <InputErrors
           className={errorsClassName}
-          errors={this.state.errors}
+          errors={(!noErrorsDescription && this.state.errors) || []}
           style={errorsStyle}
         />
+        {spacer}
       </div>
     );
   }
 }
 
-InputPasswordWithErrors.defaultProps = {
+InputEmail.defaultProps = {
   autoFocus: false,
   className: '',
   customBootstrapClass: 'col-md-6',
@@ -143,13 +161,15 @@ InputPasswordWithErrors.defaultProps = {
   label: '',
   labelClassName: '',
   labelStyle: {},
+  noErrorsDescription: false,
   placeholder: '',
   style: {},
   tabIndex: '0',
   validations: {},
+  height: 'default',
 };
 
-InputPasswordWithErrors.propTypes = {
+InputEmail.propTypes = {
   autoFocus: PropTypes.bool,
   className: PropTypes.string,
   customBootstrapClass: PropTypes.string,
@@ -182,6 +202,7 @@ InputPasswordWithErrors.propTypes = {
   labelClassName: PropTypes.string,
   labelStyle: PropTypes.object,
   name: PropTypes.string.isRequired,
+  noErrorsDescription: PropTypes.bool,
   onBlur: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   onChange: PropTypes.func.isRequired,
   onFocus: PropTypes.func,
@@ -190,6 +211,7 @@ InputPasswordWithErrors.propTypes = {
   tabIndex: PropTypes.string,
   validations: PropTypes.object,
   value: PropTypes.string.isRequired,
+  height: PropTypes.string,
 };
 
-export default InputPasswordWithErrors;
+export default InputEmail;

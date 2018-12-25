@@ -6,6 +6,7 @@
         "label": "Enter your email",
         "name": "email",
         "type": "email",
+        "height": "lg",
         "placeholder": "johndoe@gmail.com"
       }
     ],
@@ -15,13 +16,15 @@
         "label": "",
         "name": "email",
         "type": "text",
+        "height": "lg",
         "placeholder": "email@gmail.com"
       },
       {
         "customBootstrapClass": "col-md-12",
         "label": "Senha",
         "name": "password",
-        "type": "password"
+        "type": "password",
+        "height": "lg"
       },
       {
         "customBootstrapClass": "col-md-6",
@@ -36,26 +39,30 @@
         "label": "Nome",
         "name": "name",
         "type": "text",
-        "placeholder": "Seu Nome"
+        "placeholder": "Seu Nome",
+        "height": "lg"
       },
       {
         "customBootstrapClass": "col-md-12",
         "label": "Senha",
         "name": "password",
-        "type": "password"
+        "type": "password",
+        "height": "lg"
       },
       {
         "customBootstrapClass": "col-md-12",
         "label": "Confirme senha",
         "name": "confirmPassword",
-        "type": "password"
+        "type": "password",
+        "height": "lg"
       },
       {
         "customBootstrapClass": "col-md-12",
         "label": "E-mail",
         "name": "email",
         "placeholder": "johndoe@gmail.com",
-        "type": "email"
+        "type": "email",
+        "height": "lg"
       }
     ],
     "reset-password": [
@@ -63,13 +70,15 @@
         "customBootstrapClass": "col-md-12",
         "name": "password",
         "type": "password",
-        "label": "Password"
+        "label": "Password",
+        "height": "lg"
       },
       {
         "customBootstrapClass": "col-md-12",
         "name": "passwordConfirmation",
         "type": "password",
-        "label": "Confirm Password"
+        "label": "Confirm Password",
+        "height": "lg"
       }
     ]
   },

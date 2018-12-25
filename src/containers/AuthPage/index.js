@@ -72,7 +72,7 @@ class AuthPage extends React.Component {
       <Content>
         <div className="auth-content">
           <div className="center-content">
-            <h5>Para continuar, faça login no React.</h5>
+            <h4>Para continuar, faça login no React.</h4>
           </div>
           <form onSubmit={this.handlerSubmit}>
             {map(inputs, (input, key) => (
@@ -88,6 +88,7 @@ class AuthPage extends React.Component {
                   ],
                   []
                 )}
+                height={get(input, 'height')}
                 key={get(input, 'name')}
                 label={get(input, 'label')}
                 name={get(input, 'name')}

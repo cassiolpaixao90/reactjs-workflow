@@ -64,6 +64,7 @@ class InputText extends Component {
       style,
       tabIndex,
       value,
+      height,
     } = this.props;
 
     const handleBlur = isFunction(onBlur) ? onBlur : this.handleBlur;
@@ -78,16 +79,16 @@ class InputText extends Component {
     }
 
     const lStyle = !isEmpty(labelStyle) ? labelStyle : { marginTop: '3px' };
+    const invariant = cn(
+      'form-group',
+      customBootstrapClass,
+      !isEmpty(className) && className
+    );
+
+    const inputHeight = height === 'default' ? 'default' : `input-${height}`;
 
     return (
-      <div
-        className={cn(
-          'inputTextWithErrors',
-          customBootstrapClass,
-          !isEmpty(className) && className
-        )}
-        style={style}
-      >
+      <div className={invariant} style={style}>
         <Label
           className={labelClassName}
           htmlFor={name}
@@ -100,6 +101,7 @@ class InputText extends Component {
           className={cn(
             'inputText',
             'form-control',
+            inputHeight,
             !deactivateErrorHighlight && this.state.errors && 'is-invalid',
             !isEmpty(className) && className
           )}
@@ -156,6 +158,7 @@ InputText.defaultProps = {
   style: {},
   tabIndex: '0',
   validations: {},
+  height: 'default',
 };
 
 InputText.propTypes = {
@@ -200,6 +203,7 @@ InputText.propTypes = {
   tabIndex: PropTypes.string,
   validations: PropTypes.object,
   value: PropTypes.string.isRequired,
+  height: PropTypes.string,
 };
 
 export default InputText;
