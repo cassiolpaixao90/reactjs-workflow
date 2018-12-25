@@ -4,7 +4,7 @@ import InputCheckboxWithErrors from '../InputCheckboxWithErrors';
 import InputEmailWithErrors from '../InputEmailWithErrors';
 import InputFileWithErrors from '../InputFileWithErrors';
 import InputPasswordWithErrors from '../InputPasswordWithErrors';
-import InputTextWithErrors from '../InputTextWithErrors';
+import InputText from '../InputText/InputText';
 
 const DefaultInputError = ({ type }) => (
   <div>
@@ -17,15 +17,13 @@ const inputs = {
   email: InputEmailWithErrors,
   file: InputFileWithErrors,
   password: InputPasswordWithErrors,
-  string: InputTextWithErrors,
-  text: InputTextWithErrors,
+  text: InputText,
 };
 
 function InputsIndex(props) {
-  const inputValue =
-    props.type === 'checkbox' || props.type === 'toggle'
-      ? props.value || false
-      : props.value || '';
+  const inputValue = props.type === 'checkbox' || props.type === 'toggle'
+    ? props.value || false
+    : props.value || '';
   const Input = inputs[props.type] ? inputs[props.type] : DefaultInputError;
 
   return <Input {...props} value={inputValue} />;

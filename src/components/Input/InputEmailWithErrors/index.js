@@ -1,11 +1,3 @@
-/**
- *
- * InputEmailWithErrors
- *
- */
-
-/* eslint-disable no-mixed-operators */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty, isFunction } from 'lodash';
@@ -19,7 +11,6 @@ import validateInput from '../../../validators/validators.input';
 import './styles.css';
 
 class InputEmailWithErrors extends React.Component {
-  // eslint-disable-line react/prefer-stateless-function
   state = { errors: [], hasInitialValue: false };
 
   componentDidMount() {
@@ -50,7 +41,7 @@ class InputEmailWithErrors extends React.Component {
       const errors = validateInput(
         target.value,
         this.props.validations,
-        'email',
+        'email'
       );
       this.setState({ errors, hasInitialValue: true });
     }
@@ -98,7 +89,7 @@ class InputEmailWithErrors extends React.Component {
         className={cn(
           'inputEmailWithErrors',
           this.props.customBootstrapClass,
-          !isEmpty(this.props.className) && this.props.className,
+          !isEmpty(this.props.className) && this.props.className
         )}
         style={style}
       >

@@ -71,6 +71,9 @@ class AuthPage extends React.Component {
     return (
       <Content>
         <div className="content-auth">
+          <div className="center-content">
+            <h5>Para continuar, faça login no React.</h5>
+          </div>
           <form onSubmit={this.handlerSubmit}>
             <div className="row" style={{ textAlign: 'start' }}>
               {map(inputs, (input, key) => (

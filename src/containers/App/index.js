@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
-import Nav from '../../components/NavBar/Nav';
 import Header from '../../components/Header/Header';
 import Content from '../../components/Layout/Content';
 import Footer from '../../components/Footer/Footer';

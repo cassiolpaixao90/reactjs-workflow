@@ -1,51 +1,37 @@
-/* eslint-disable no-mixed-operators */
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty, isFunction } from 'lodash';
 import cn from 'classnames';
 import Label from '../Label';
-import InputDescription from '../InputDescription';
-import InputErrors from '../InputErrors';
-import InputText from '../InputText';
+import InputDescription from './InputDescription';
+import InputErrors from './InputErrors';
 import validateInput from '../../../validators/validators.input';
-import './styles.css';
+import './styles.scss';
 
-class InputTextWithErrors extends React.Component {
-  // eslint-disable-line react/prefer-stateless-function
+class InputText extends Component {
   state = { errors: [], hasInitialValue: false };
 
   componentDidMount() {
     const { value, errors } = this.props;
-
     if (!isEmpty(value)) {
       this.setState({ hasInitialValue: true });
     }
-
     if (!isEmpty(errors)) {
       this.setState({ errors });
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    // Show required error if the input's value is received after the compo is mounted
     if (!isEmpty(nextProps.value) && !this.state.hasInitialValue) {
       this.setState({ hasInitialValue: true });
     }
-
-    // Check if errors have been updated during validations
     if (nextProps.didCheckErrors !== this.props.didCheckErrors) {
-      // Remove from the state the errors that have already been set
       const errors = isEmpty(nextProps.errors) ? [] : nextProps.errors;
       this.setState({ errors });
     }
   }
 
-  /**
-   * Set the errors depending on the validations given to the input
-   * @param  {Object} target
-   */
   handleBlur = ({ target }) => {
-    // Prevent from displaying error if the input is initially isEmpty
     if (!isEmpty(target.value) || this.state.hasInitialValue) {
       const errors = validateInput(target.value, this.props.validations);
       this.setState({ errors, hasInitialValue: true });
@@ -79,8 +65,8 @@ class InputTextWithErrors extends React.Component {
       tabIndex,
       value,
     } = this.props;
-    const handleBlur = isFunction(onBlur) ? onBlur : this.handleBlur;
 
+    const handleBlur = isFunction(onBlur) ? onBlur : this.handleBlur;
     let spacer = !isEmpty(inputDescription) ? (
       <div className="spacer" />
     ) : (
@@ -98,7 +84,7 @@ class InputTextWithErrors extends React.Component {
         className={cn(
           'inputTextWithErrors',
           customBootstrapClass,
-          !isEmpty(className) && className,
+          !isEmpty(className) && className
         )}
         style={style}
       >
@@ -108,19 +94,25 @@ class InputTextWithErrors extends React.Component {
           message={label}
           style={lStyle}
         />
-        <InputText
+
+        <input
           autoFocus={autoFocus}
-          className={inputClassName}
+          className={cn(
+            'inputText',
+            'form-control',
+            !deactivateErrorHighlight && this.state.errors && 'is-invalid',
+            !isEmpty(className) && className
+          )}
           disabled={disabled}
-          deactivateErrorHighlight={deactivateErrorHighlight}
-          error={!isEmpty(this.state.errors)}
+          id={name}
           name={name}
           onBlur={handleBlur}
           onChange={onChange}
           onFocus={onFocus}
           placeholder={placeholder}
-          style={inputStyle}
+          style={style}
           tabIndex={tabIndex}
+          type="text"
           value={value}
         />
         <InputDescription
@@ -139,7 +131,7 @@ class InputTextWithErrors extends React.Component {
   }
 }
 
-InputTextWithErrors.defaultProps = {
+InputText.defaultProps = {
   autoFocus: false,
   className: '',
   customBootstrapClass: 'col-md-6',
@@ -166,7 +158,7 @@ InputTextWithErrors.defaultProps = {
   validations: {},
 };
 
-InputTextWithErrors.propTypes = {
+InputText.propTypes = {
   autoFocus: PropTypes.bool,
   className: PropTypes.string,
   customBootstrapClass: PropTypes.string,
@@ -210,4 +202,4 @@ InputTextWithErrors.propTypes = {
   value: PropTypes.string.isRequired,
 };
 
-export default InputTextWithErrors;
+export default InputText;

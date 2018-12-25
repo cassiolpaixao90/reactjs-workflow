@@ -12,7 +12,7 @@ class InputFile extends React.Component {
     position: 0,
   };
 
-  addFilesToProps = files => {
+  addFilesToProps = (files) => {
     const initAcc = this.props.multiple ? cloneDeep(this.props.value) : {};
     const value = Object.keys(files).reduce((acc, current) => {
       if (this.props.multiple) {
@@ -36,18 +36,18 @@ class InputFile extends React.Component {
 
   handleChange = ({ target }) => this.addFilesToProps(target.files);
 
-  handleClick = e => {
+  handleClick = (e) => {
     e.preventDefault();
     e.stopPropagation();
     this.refs.inputFile.click();
   };
 
-  onDrop = e => {
+  onDrop = (e) => {
     e.preventDefault();
     this.addFilesToProps(e.dataTransfer.files);
   };
 
-  handleFileDelete = e => {
+  handleFileDelete = (e) => {
     e.preventDefault();
     e.stopPropagation();
 
@@ -78,7 +78,9 @@ class InputFile extends React.Component {
   };
 
   render() {
-    const { multiple, name, onChange, value } = this.props;
+    const {
+      multiple, name, onChange, value,
+    } = this.props;
 
     return (
       <div>
