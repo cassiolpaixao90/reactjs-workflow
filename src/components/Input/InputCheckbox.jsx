@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty, isFunction, map } from 'lodash';
 import cn from 'classnames';
 
-class InputCheckbox extends React.Component {
+class InputCheckbox extends Component {
   state = { errors: [] };
 
   handleChange = () => {
@@ -76,7 +76,6 @@ class InputCheckbox extends React.Component {
     const checkbox = (
       <input
         autoFocus={autoFocus}
-        className="form-check-input"
         checked={value}
         disabled={disabled}
         id={name}
@@ -117,8 +116,9 @@ class InputCheckbox extends React.Component {
     return (
       <div
         className={cn(
-          'form-check',
-          'inputCheckbox',
+          'form-group',
+          'checkbox',
+          'col-md-12',
           !isEmpty(className) && className
         )}
         style={style}

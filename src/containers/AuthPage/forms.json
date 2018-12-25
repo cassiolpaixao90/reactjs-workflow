@@ -13,7 +13,7 @@
     "login": [
       {
         "customBootstrapClass": "col-md-12",
-        "label": "",
+        "label": "E-mail",
         "name": "email",
         "type": "text",
         "height": "lg",

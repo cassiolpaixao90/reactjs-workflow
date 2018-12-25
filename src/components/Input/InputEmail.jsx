@@ -68,6 +68,7 @@ class InputEmail extends React.Component {
       value,
       height,
     } = this.props;
+
     const handleBlur = isFunction(onBlur) ? onBlur : this.handleBlur;
 
     let spacer = !isEmpty(inputDescription) ? (
