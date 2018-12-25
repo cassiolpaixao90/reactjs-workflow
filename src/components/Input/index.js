@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import InputCheckboxWithErrors from '../InputCheckboxWithErrors';
-import InputFileWithErrors from '../InputFileWithErrors';
-import InputPassword from '../InputPassword/InputPassword';
-import InputText from '../InputText/InputText';
-import InputEmail from '../InputEmail/InputEmail';
+import InputPassword from './InputPassword';
+import InputText from './InputText';
+import InputEmail from './InputEmail';
+import InputCheckbox from './InputCheckbox';
 
 const DefaultInputError = ({ type }) => (
   <div>
@@ -13,9 +12,9 @@ const DefaultInputError = ({ type }) => (
 );
 
 const inputs = {
-  checkbox: InputCheckboxWithErrors,
+  checkbox: InputCheckbox,
   email: InputEmail,
-  file: InputFileWithErrors,
+  // file: InputFileWithErrors,
   password: InputPassword,
   text: InputText,
 };

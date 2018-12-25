@@ -12,7 +12,7 @@ import makeSelectAuthPage from './selectors';
 import { onChange, setForm, submit } from './actions';
 import Button from '../../components/Button';
 import FormDivider from '../../components/FormDivider';
-import Input from '../../components/Input/InputsIndex';
+import Input from '../../components/Input';
 import form from './forms.json';
 import Content from '../../components/Layout/Content';
 import './styles.css';

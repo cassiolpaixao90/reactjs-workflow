@@ -1,24 +1,18 @@
-/* eslint-disable no-mixed-operators */
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { isEmpty, isFunction } from 'lodash';
+import { isEmpty, isFunction, map } from 'lodash';
 import cn from 'classnames';
-import Label from '../Label';
-import InputDescription from '../InputDescription';
-import InputErrors from '../InputErrors';
-import validateInput from '../../../validators/validators.input';
-import './styles.css';
+import Label from './Label';
+import validateInput from '../../validators/validators.input';
 
-class InputPassword extends React.Component {
+class InputText extends Component {
   state = { errors: [], hasInitialValue: false };
 
   componentDidMount() {
     const { value, errors } = this.props;
-
     if (!isEmpty(value)) {
       this.setState({ hasInitialValue: true });
     }
-
     if (!isEmpty(errors)) {
       this.setState({ errors });
     }
@@ -28,7 +22,6 @@ class InputPassword extends React.Component {
     if (!isEmpty(nextProps.value) && !this.state.hasInitialValue) {
       this.setState({ hasInitialValue: true });
     }
-
     if (nextProps.didCheckErrors !== this.props.didCheckErrors) {
       const errors = isEmpty(nextProps.errors) ? [] : nextProps.errors;
       this.setState({ errors });
@@ -45,17 +38,23 @@ class InputPassword extends React.Component {
   render() {
     const {
       autoFocus,
+      className,
+      customBootstrapClass,
       deactivateErrorHighlight,
       disabled,
       errorsClassName,
       errorsStyle,
       inputClassName,
+      inputDescription,
       inputDescriptionClassName,
       inputDescriptionStyle,
       inputStyle,
+      label,
       labelClassName,
       labelStyle,
       name,
+      noErrorsDescription,
+      onBlur,
       onChange,
       onFocus,
       placeholder,
@@ -64,18 +63,25 @@ class InputPassword extends React.Component {
       value,
       height,
     } = this.props;
-    const handleBlur = isFunction(this.props.onBlur)
-      ? this.props.onBlur
-      : this.handleBlur;
 
-    const eyeColor = this.state.showPassword
-      ? { color: 'black' }
-      : { color: '#9EA7B8' };
+    const handleBlur = isFunction(onBlur) ? onBlur : this.handleBlur;
+    let spacer = !isEmpty(inputDescription) ? (
+      <div className="spacer" />
+    ) : (
+      <div />
+    );
+
+    if (!noErrorsDescription && !isEmpty(this.state.errors)) {
+      spacer = <div />;
+    }
+
+    const lStyle = !isEmpty(labelStyle) ? labelStyle : { marginTop: '3px' };
 
     const invariant = cn(
       'form-group',
-      this.props.customBootstrapClass,
-      !isEmpty(this.props.className) && this.props.className
+      customBootstrapClass,
+      !isEmpty(className) && className,
+      { 'has-error': this.state.errors.length > 0 }
     );
 
     const inputHeight = height === 'default' ? 'default' : `input-${height}`;
@@ -85,20 +91,18 @@ class InputPassword extends React.Component {
         <Label
           className={labelClassName}
           htmlFor={name}
-          message={this.props.label}
-          style={labelStyle}
+          message={label}
+          style={lStyle}
         />
 
         <input
-          autoComplete="new-password"
           autoFocus={autoFocus}
           className={cn(
+            'inputText',
             'form-control',
             inputHeight,
-            !deactivateErrorHighlight
-              && !isEmpty(this.state.errors)
-              && 'is-invalid',
-            !isEmpty(inputClassName) && inputClassName
+            !deactivateErrorHighlight && this.state.errors && 'is-invalid',
+            !isEmpty(className) && className
           )}
           disabled={disabled}
           id={name}
@@ -109,34 +113,22 @@ class InputPassword extends React.Component {
           placeholder={placeholder}
           style={style}
           tabIndex={tabIndex}
-          type={(!this.state.showPassword && 'password') || 'text'}
+          type="text"
           value={value}
         />
-        <div className="iconEyeWrapper">
-          <div
-            className="iconEyeSubWrapper"
-            onClick={this.handleClick}
-            style={eyeColor}
-          >
-            <i className="fa fa-eye" />
-          </div>
-        </div>
-        <InputDescription
-          className={inputDescriptionClassName}
-          message={this.props.inputDescription}
-          style={inputDescriptionStyle}
-        />
-        <InputErrors
-          className={errorsClassName}
-          errors={this.state.errors}
-          style={errorsStyle}
-        />
+
+        {map(this.state.errors, (error, key) => (
+          <small className="help-block" key={key}>
+            {error}
+          </small>
+        ))}
+        {spacer}
       </div>
     );
   }
 }
 
-InputPassword.defaultProps = {
+InputText.defaultProps = {
   autoFocus: false,
   className: '',
   customBootstrapClass: 'col-md-6',
@@ -156,6 +148,7 @@ InputPassword.defaultProps = {
   label: '',
   labelClassName: '',
   labelStyle: {},
+  noErrorsDescription: false,
   placeholder: '',
   style: {},
   tabIndex: '0',
@@ -163,7 +156,7 @@ InputPassword.defaultProps = {
   height: 'default',
 };
 
-InputPassword.propTypes = {
+InputText.propTypes = {
   autoFocus: PropTypes.bool,
   className: PropTypes.string,
   customBootstrapClass: PropTypes.string,
@@ -196,6 +189,7 @@ InputPassword.propTypes = {
   labelClassName: PropTypes.string,
   labelStyle: PropTypes.object,
   name: PropTypes.string.isRequired,
+  noErrorsDescription: PropTypes.bool,
   onBlur: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
   onChange: PropTypes.func.isRequired,
   onFocus: PropTypes.func,
@@ -207,4 +201,4 @@ InputPassword.propTypes = {
   height: PropTypes.string,
 };
 
-export default InputPassword;
+export default InputText;

@@ -1,14 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { isEmpty, isFunction } from 'lodash';
+import { isEmpty, isFunction, map } from 'lodash';
 import cn from 'classnames';
-
-import Label from '../Label';
-import InputDescription from '../InputDescription';
-import InputErrors from '../InputErrors';
-
-import validateInput from '../../../validators/validators.input';
-import './styles.css';
+import Label from './Label';
+import validateInput from '../../validators/validators.input';
 
 class InputEmail extends React.Component {
   state = { errors: [], hasInitialValue: false };
@@ -86,16 +81,15 @@ class InputEmail extends React.Component {
     }
 
     const inputHeight = height === 'default' ? 'default' : `input-${height}`;
+    const invariantClassName = cn(
+      'form-group',
+      this.props.customBootstrapClass,
+      !isEmpty(this.props.className) && this.props.className,
+      { 'has-error': !noErrorsDescription && this.state.errors.length > 0 }
+    );
 
     return (
-      <div
-        className={cn(
-          'form-group',
-          this.props.customBootstrapClass,
-          !isEmpty(this.props.className) && this.props.className
-        )}
-        style={style}
-      >
+      <div className={invariantClassName} style={style}>
         <Label
           className={labelClassName}
           htmlFor={name}
@@ -125,17 +119,11 @@ class InputEmail extends React.Component {
           value={value}
         />
 
-        <InputDescription
-          className={inputDescriptionClassName}
-          message={inputDescription}
-          style={inputDescriptionStyle}
-        />
-        <InputErrors
-          className={errorsClassName}
-          errors={(!noErrorsDescription && this.state.errors) || []}
-          style={errorsStyle}
-        />
-        {spacer}
+        {map(this.state.errors, (error, key) => (
+          <small className="help-block" key={key}>
+            {error}
+          </small>
+        ))}
       </div>
     );
   }

@@ -1,15 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { isEmpty, isFunction } from 'lodash';
+import { isEmpty, isFunction, map } from 'lodash';
 import cn from 'classnames';
-import InputDescription from "../InputDescription";
-import InputErrors from "../InputErrors";
-import InputCheckbox from "../InputCheckbox";
 
-import './styles.css';
-
-class InputCheckboxWithErrors extends React.Component {
+class InputCheckbox extends React.Component {
   state = { errors: [] };
+
+  handleChange = () => {
+    const target = {
+      name: this.props.name,
+      type: 'checkbox',
+      value: !this.props.value,
+    };
+
+    this.props.onChange({ target });
+  };
 
   componentDidMount() {
     const { errors } = this.props;
@@ -27,6 +32,7 @@ class InputCheckboxWithErrors extends React.Component {
 
   render() {
     const {
+      name,
       autoFocus,
       className,
       customBootstrapClass,
@@ -39,7 +45,6 @@ class InputCheckboxWithErrors extends React.Component {
       inputDescriptionStyle,
       inputStyle,
       label,
-      name,
       noErrorsDescription,
       onBlur,
       onChange,
@@ -68,50 +73,69 @@ class InputCheckboxWithErrors extends React.Component {
       inputTitle = title();
     }
 
+    const checkbox = (
+      <input
+        autoFocus={autoFocus}
+        className="form-check-input"
+        checked={value}
+        disabled={disabled}
+        id={name}
+        onBlur={onBlur}
+        onChange={this.handleChange}
+        onFocus={onFocus}
+        tabIndex={tabIndex}
+        type="checkbox"
+      />
+    );
+
+    let content = <div />;
+
+    if (typeof label === 'string') {
+      content = (
+        <label
+          className={cn('form-group col-md-12', disabled && 'disabled')}
+          htmlFor={name}
+        >
+          {checkbox}
+          {label}
+        </label>
+      );
+    }
+
+    if (isFunction(label)) {
+      content = (
+        <label
+          className={cn('form-check-label', disabled && 'disabled')}
+          htmlFor={name}
+        >
+          {checkbox}
+          {label()}
+        </label>
+      );
+    }
+
     return (
       <div
         className={cn(
-          'inputCheckboxContainer',
-          customBootstrapClass,
-          !isEmpty(className) && className,
+          'form-check',
+          'inputCheckbox',
+          !isEmpty(className) && className
         )}
         style={style}
       >
-        {inputTitle}
-        <InputCheckbox
-          autoFocus={autoFocus}
-          className={inputClassName}
-          disabled={disabled}
-          label={label}
-          name={name}
-          onBlur={handleBlur}
-          onChange={onChange}
-          onFocus={onFocus}
-          placeholder={placeholder}
-          style={inputStyle}
-          tabIndex={tabIndex}
-          value={value}
-        />
-        <InputDescription
-          className={cn(
-            'inputCheckboxDescriptionContainer',
-            inputDescriptionClassName,
-          )}
-          message={this.props.inputDescription}
-          style={inputDescriptionStyle}
-        />
-        <InputErrors
-          className={errorsClassName}
-          errors={this.state.errors}
-          style={errorsStyle}
-        />
-        {spacer}
+        {content}
+
+        {map(this.state.errors, (error, key) => (
+          <small className="help-block" key={key}>
+            {error}
+          </small>
+        ))}
       </div>
     );
   }
 }
 
-InputCheckboxWithErrors.defaultProps = {
+InputCheckbox.defaultProps = {
   autoFocus: false,
   className: '',
   customBootstrapClass: 'col-md-3',
@@ -128,8 +152,6 @@ InputCheckboxWithErrors.defaultProps = {
   inputDescriptionStyle: {},
   inputStyle: {},
   label: '',
-  labelClassName: '',
-  labelStyle: {},
   noErrorsDescription: false,
   placeholder: '',
   style: {},
@@ -139,7 +161,7 @@ InputCheckboxWithErrors.defaultProps = {
   value: false,
 };
 
-InputCheckboxWithErrors.propTypes = {
+InputCheckbox.propTypes = {
   autoFocus: PropTypes.bool,
   className: PropTypes.string,
   customBootstrapClass: PropTypes.string,
@@ -189,4 +211,4 @@ InputCheckboxWithErrors.propTypes = {
   value: PropTypes.bool,
 };
 
-export default InputCheckboxWithErrors;
+export default InputCheckbox;
