@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-const Navbar = () => (
+const NavbarNoLoggedIn = () => (
   <React.Fragment>
     <nav className="main-nav">
       <ul className="main-nav__items">
@@ -16,4 +16,4 @@ const Navbar = () => (
   </React.Fragment>
 );
 
-export default Navbar;
+export default NavbarNoLoggedIn;

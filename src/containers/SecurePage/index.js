@@ -8,17 +8,22 @@ import { Link } from 'react-router-dom';
 import injectReducer from '../../utils/utils.injects';
 import makeSelectSecurePage from './selectors';
 import reducer from '../../reducers/createReducer';
+import Content from '../../components/Layout/Content';
+import ContentHeader from '../../components/Layout/ContentHeader';
 
 const SecurePage = () => (
-  <div style={{ paddingTop: '30px', textAlign: 'center' }}>
-    <h1>Now that you are logged in you have access to this page</h1>
-    <p>
-      <Link to={`/${Math.random()}`}>Go to another protected url</Link>
-    </p>
-    <p>
-      <Link to="/">Back to HomePage</Link>
-    </p>
-  </div>
+  <React.Fragment>
+    <ContentHeader title="Home" />
+    <Content>
+      <h1>Now that you are logged in you have access to this page</h1>
+      <p>
+        <Link to={`/${Math.random()}`}>Go to another protected url</Link>
+      </p>
+      <p>
+        <Link to="/">Back to HomePage</Link>
+      </p>
+    </Content>
+  </React.Fragment>
 );
 
 SecurePage.propTypes = {

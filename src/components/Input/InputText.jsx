@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty, isFunction, map } from 'lodash';
 import cn from 'classnames';
-import Label from './Label';
 import validateInput from '../../validators/validators.input';
+import If from '../Operator/If';
 
 class InputText extends Component {
   state = { errors: [], hasInitialValue: false };
@@ -88,12 +88,9 @@ class InputText extends Component {
 
     return (
       <div className={invariant} style={style}>
-        <Label
-          className={labelClassName}
-          htmlFor={name}
-          message={label}
-          style={lStyle}
-        />
+        <If test={label}>
+          <label htmlFor={name}>{label}</label>
+        </If>
 
         <input
           autoFocus={autoFocus}

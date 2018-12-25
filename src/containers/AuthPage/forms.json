@@ -3,11 +3,11 @@
     "forgot-password": [
       {
         "customBootstrapClass": "col-md-12",
-        "label": "Enter your email",
+        "label": "E-mail",
         "name": "email",
         "type": "email",
         "height": "lg",
-        "placeholder": "johndoe@gmail.com"
+        "placeholder": "email@gmail.com"
       }
     ],
     "login": [
@@ -15,7 +15,7 @@
         "customBootstrapClass": "col-md-12",
         "label": "E-mail",
         "name": "email",
-        "type": "text",
+        "type": "email",
         "height": "lg",
         "placeholder": "email@gmail.com"
       },
@@ -24,7 +24,8 @@
         "label": "Senha",
         "name": "password",
         "type": "password",
-        "height": "lg"
+        "height": "lg",
+        "placeholder": "Sua senha"
       },
       {
         "customBootstrapClass": "col-md-6",
@@ -44,25 +45,27 @@
       },
       {
         "customBootstrapClass": "col-md-12",
+        "label": "E-mail",
+        "name": "email",
+        "placeholder": "email@gmail.com",
+        "type": "email",
+        "height": "lg"
+      },
+      {
+        "customBootstrapClass": "col-md-12",
         "label": "Senha",
         "name": "password",
         "type": "password",
-        "height": "lg"
+        "height": "lg",
+        "placeholder": "Senha"
       },
       {
         "customBootstrapClass": "col-md-12",
         "label": "Confirme senha",
         "name": "confirmPassword",
         "type": "password",
-        "height": "lg"
-      },
-      {
-        "customBootstrapClass": "col-md-12",
-        "label": "E-mail",
-        "name": "email",
-        "placeholder": "johndoe@gmail.com",
-        "type": "email",
-        "height": "lg"
+        "height": "lg",
+        "placeholder": "Confirme sua senha"
       }
     ],
     "reset-password": [
@@ -71,6 +74,7 @@
         "name": "password",
         "type": "password",
         "label": "Password",
+        "placeholder": "Ssenha",
         "height": "lg"
       },
       {
@@ -78,6 +82,7 @@
         "name": "passwordConfirmation",
         "type": "password",
         "label": "Confirm Password",
+        "placeholder": "Confirme sua senha",
         "height": "lg"
       }
     ]

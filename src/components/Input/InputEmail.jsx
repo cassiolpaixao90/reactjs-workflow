@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty, isFunction, map } from 'lodash';
 import cn from 'classnames';
-import Label from './Label';
 import validateInput from '../../validators/validators.input';
+import If from '../Operator/If';
 
 class InputEmail extends React.Component {
   state = { errors: [], hasInitialValue: false };
@@ -91,12 +91,9 @@ class InputEmail extends React.Component {
 
     return (
       <div className={invariantClassName} style={style}>
-        <Label
-          className={labelClassName}
-          htmlFor={name}
-          message={label}
-          style={labelStyle}
-        />
+        <If test={label}>
+          <label htmlFor={name}>{label}</label>
+        </If>
 
         <input
           autoFocus={autoFocus}
