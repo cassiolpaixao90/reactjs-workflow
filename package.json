@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/cassiolpaixao90/reactjs-workflow#readme",
   "dependencies": {
+    "admin-lte": "2.3.11",
     "chalk": "2.4.1",
     "classnames": "^2.2.5",
     "compression": "1.7.3",
@@ -40,6 +41,7 @@
     "loadable-components": "2.2.3",
     "lodash": "4.17.11",
     "minimist": "1.2.0",
+    "normalize.css": "8.0.1",
     "prop-types": "15.6.2",
     "react": "16.6.0",
     "react-dom": "16.6.0",

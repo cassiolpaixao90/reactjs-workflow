@@ -1,6 +1,7 @@
-.content-auth {
+.auth-content {
   margin: 0 auto;
   max-width: 450px;
+  padding: 4.7rem 0 4.7rem 0;
 }
 .center-content {
   display: flex;

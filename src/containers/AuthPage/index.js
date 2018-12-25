@@ -70,46 +70,44 @@ class AuthPage extends React.Component {
 
     return (
       <Content>
-        <div className="content-auth">
+        <div className="auth-content">
           <div className="center-content">
             <h5>Para continuar, faça login no React.</h5>
           </div>
           <form onSubmit={this.handlerSubmit}>
-            <div className="row" style={{ textAlign: 'start' }}>
-              {map(inputs, (input, key) => (
-                <Input
-                  autoFocus={key === 0}
-                  customBootstrapClass={get(input, 'customBootstrapClass')}
-                  didCheckErrors={this.state.didCheckErrors}
-                  errors={get(
-                    this.state.errors,
-                    [
-                      findIndex(this.state.errors, ['name', input.name]),
-                      'errors',
-                    ],
-                    []
-                  )}
-                  key={get(input, 'name')}
-                  label={get(input, 'label')}
-                  name={get(input, 'name')}
-                  onChange={this.props.onChange}
-                  placeholder={get(input, 'placeholder')}
-                  type={get(input, 'type')}
-                  validations={{ required: true }}
-                  value={get(this.props.modifiedData, get(input, 'name'))}
-                />
-              ))}
-              <div className="col-md-12 buttonContainer">
-                <Button
-                  label="save"
-                  style={{ width: '100%' }}
-                  primary
-                  type="submit"
-                />
-              </div>
+            {map(inputs, (input, key) => (
+              <Input
+                autoFocus={key === 0}
+                customBootstrapClass={get(input, 'customBootstrapClass')}
+                didCheckErrors={this.state.didCheckErrors}
+                errors={get(
+                  this.state.errors,
+                  [
+                    findIndex(this.state.errors, ['name', input.name]),
+                    'errors',
+                  ],
+                  []
+                )}
+                key={get(input, 'name')}
+                label={get(input, 'label')}
+                name={get(input, 'name')}
+                onChange={this.props.onChange}
+                placeholder={get(input, 'placeholder')}
+                type={get(input, 'type')}
+                validations={{ required: true }}
+                value={get(this.props.modifiedData, get(input, 'name'))}
+              />
+            ))}
+            <div className="col-md-12 buttonContainer">
+              <Button
+                label="save"
+                style={{ width: '100%' }}
+                primary
+                type="submit"
+              />
             </div>
           </form>
-          <div className="linkContainer">{this.renderLink()}</div>
+          <div className="linkContainer col-md-12">{this.renderLink()}</div>
         </div>
       </Content>
     );

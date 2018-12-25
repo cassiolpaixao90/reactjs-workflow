@@ -1,3 +1,7 @@
+/*
+
+hover hexa 4ed9ff or 00d977
+ */
 .backdrop {
   position: fixed;
   display: none;
@@ -11,7 +15,6 @@
 
 .main-header {
   width: 100%;
-  /* position: fixed; */
   top: 0;
   left: 0;
   background: #fff;
@@ -22,7 +25,6 @@
   align-items: center;
   justify-content: space-between;
   height: 4.75rem;
-  margin-bottom: 30px;
 }
 
 .toggle-button {
@@ -57,7 +59,7 @@
 .main-header__brand img {
   height: 2.5rem;
   vertical-align: middle;
-  /* width: 100%; */
+  width: auto;
 }
 
 .main-nav {
@@ -86,7 +88,7 @@
 .main-nav__item a:hover,
 .main-nav__item a:active {
   color: #000;
-  border-bottom: 5px solid #00d977;
+  border-bottom: 5px solid #4ed9ff;
 }
 
 .main-nav__item--cta a,
