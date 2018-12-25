@@ -14,6 +14,8 @@ import Button from '../../components/Button';
 import FormDivider from '../../components/FormDivider';
 import Input from '../../components/Input/InputsIndex';
 import form from './forms.json';
+import Content from '../../components/Layout/Content';
+import './styles.css';
 
 class AuthPage extends React.Component {
   state = { errors: [], didCheckErrors: false };
@@ -67,65 +69,46 @@ class AuthPage extends React.Component {
     const inputs = get(form, ['views', this.props.match.params.authType], []);
 
     return (
-      <div className="authPage">
-        <div className="wrapper">
-          <div className="headerContainer">
-            {this.props.match.params.authType === 'register' ? (
-              <span>Welcome !</span>
-            ) : (
-              <img src="" alt="logo" />
-            )}
-          </div>
-          <div className="headerDescription">
-            {this.props.match.params.authType === 'register' ? (
-              <span>Please register to access the app.</span>
-            ) : (
-              ''
-            )}
-          </div>
-          <div className="formContainer">
-            <div className="container-fluid">
-              <FormDivider />
-              <form onSubmit={this.handlerSubmit}>
-                <div className="row" style={{ textAlign: 'start' }}>
-                  {map(inputs, (input, key) => (
-                    <Input
-                      autoFocus={key === 0}
-                      customBootstrapClass={get(input, 'customBootstrapClass')}
-                      didCheckErrors={this.state.didCheckErrors}
-                      errors={get(
-                        this.state.errors,
-                        [
-                          findIndex(this.state.errors, ['name', input.name]),
-                          'errors',
-                        ],
-                        []
-                      )}
-                      key={get(input, 'name')}
-                      label={get(input, 'label')}
-                      name={get(input, 'name')}
-                      onChange={this.props.onChange}
-                      placeholder={get(input, 'placeholder')}
-                      type={get(input, 'type')}
-                      validations={{ required: true }}
-                      value={get(this.props.modifiedData, get(input, 'name'))}
-                    />
-                  ))}
-                  <div className="col-md-12 buttonContainer">
-                    <Button
-                      label="save"
-                      style={{ width: '100%' }}
-                      primary
-                      type="submit"
-                    />
-                  </div>
-                </div>
-              </form>
+      <Content>
+        <div className="content-auth">
+          <form onSubmit={this.handlerSubmit}>
+            <div className="row" style={{ textAlign: 'start' }}>
+              {map(inputs, (input, key) => (
+                <Input
+                  autoFocus={key === 0}
+                  customBootstrapClass={get(input, 'customBootstrapClass')}
+                  didCheckErrors={this.state.didCheckErrors}
+                  errors={get(
+                    this.state.errors,
+                    [
+                      findIndex(this.state.errors, ['name', input.name]),
+                      'errors',
+                    ],
+                    []
+                  )}
+                  key={get(input, 'name')}
+                  label={get(input, 'label')}
+                  name={get(input, 'name')}
+                  onChange={this.props.onChange}
+                  placeholder={get(input, 'placeholder')}
+                  type={get(input, 'type')}
+                  validations={{ required: true }}
+                  value={get(this.props.modifiedData, get(input, 'name'))}
+                />
+              ))}
+              <div className="col-md-12 buttonContainer">
+                <Button
+                  label="save"
+                  style={{ width: '100%' }}
+                  primary
+                  type="submit"
+                />
+              </div>
             </div>
-          </div>
+          </form>
           <div className="linkContainer">{this.renderLink()}</div>
         </div>
-      </div>
+      </Content>
     );
   }
 }

@@ -1,8 +1,17 @@
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
 import Nav from '../../components/NavBar/Nav';
+import Header from '../../components/Header/Header';
+import Content from '../../components/Layout/Content';
+import Footer from '../../components/Footer/Footer';
+import RouteApp from '../../routes';
 
-const App = () => <Nav />;
+const App = () => (
+  <React.Fragment>
+    <Header />
+    <RouteApp />
+  </React.Fragment>
+);
 
 export default App;
 

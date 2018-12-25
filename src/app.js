@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router/immutable';
 import FontFaceObserver from 'fontfaceobserver';
 import LanguageProvider from './containers/LanguageProvider';
-import RouterApp from './routes';
+import App from './containers/App';
 import history from './routes/history';
 import configureStore from './store/configureStore';
 import { translationMessages } from './utils/utils.i18n';
@@ -25,7 +25,7 @@ const render = (messages) => {
     <Provider store={store}>
       <LanguageProvider messages={messages}>
         <ConnectedRouter history={history}>
-          <RouterApp />
+          <App />
         </ConnectedRouter>
       </LanguageProvider>
     </Provider>,

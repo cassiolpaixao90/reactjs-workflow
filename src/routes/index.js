@@ -6,11 +6,9 @@ import ProtectedRoute from '../containers/ProtectedRoute';
 import NotFoundPage from '../containers/NotFoundPage/Loadable';
 import HomePage from '../containers/HomePage/Loadable';
 import AuthPage from '../containers/AuthPage/Loadable';
-import App from '../containers/App';
 
 const RouterApp = () => (
   <React.Fragment>
-    <App />
     <Switch>
       <Route exact path="/" component={HomePage} />
       <Route path="/auth/:authType/:id?" component={AuthPage} />
