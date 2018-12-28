@@ -1,9 +1,3 @@
-/**
- *
- * Button
- *
- */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
@@ -11,7 +5,6 @@ import cn from 'classnames';
 
 import './styles.css';
 
-/* eslint-disable react/require-default-props */
 function Button(props) {
   const buttonProps = Object.assign({}, props);
   const propsToDelete = ['primary', 'social'];
@@ -26,15 +19,9 @@ function Button(props) {
     );
 
   return (
+    // eslint-disable-next-line react/button-has-type
     <button
-      className={cn(
-        'button',
-        props.primary && 'primary',
-        props.social === 'facebook' && 'primary',
-        props.social === 'github' && 'github',
-        props.social === 'google' && 'google',
-        props.social === 'twitter' && 'twitter',
-      )}
+      className={cn('button')}
       type={props.type || 'button'}
       {...buttonProps}
     >

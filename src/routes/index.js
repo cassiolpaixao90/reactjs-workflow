@@ -9,11 +9,11 @@ import AuthPage from '../containers/AuthPage/Loadable';
 
 const RouterApp = () => (
   <React.Fragment>
+    <Route exact path="/" component={HomePage} />
+    <Route path="/auth/:authType/:id?" component={AuthPage} />
+    <Route component={NotFoundPage} />
     <Switch>
-      <Route exact path="/" component={HomePage} />
-      <Route path="/auth/:authType/:id?" component={AuthPage} />
-      <ProtectedRoute path="/logado" component={SecurePage} />
-      <Route component={NotFoundPage} />
+      <ProtectedRoute path="/dashboard" component={SecurePage} />
     </Switch>
   </React.Fragment>
 );

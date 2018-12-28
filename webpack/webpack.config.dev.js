@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { autoprefixer } = require('autoprefixer');
 const path = require('path');
 const dotenv = require('dotenv');
 
@@ -114,7 +115,7 @@ module.exports = {
           {
             loader: 'postcss-loader',
             options: {
-              plugins: () => [require('autoprefixer')],
+              plugins: () => [autoprefixer],
               sourceMap: true,
             },
           },

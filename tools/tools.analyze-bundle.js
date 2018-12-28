@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+// eslint-disable-next-line import/no-unresolved
 const config = require('../webpack.config.prod');
 
 config.plugins.push(new BundleAnalyzerPlugin());

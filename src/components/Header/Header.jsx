@@ -6,11 +6,11 @@ import Content from '../Layout/Content';
 import If from '../Operator/If';
 import './styles.css';
 
-const Header = (props) => {
+const Header = props => {
   const isLoggedIn = true;
   return (
     <React.Fragment>
-      <If test={isLoggedIn}>
+      <If test={!isLoggedIn}>
         <header className="main-header">
           <a href="javascript:;" className="logo">
             <span className="logo-mini">
@@ -34,7 +34,7 @@ const Header = (props) => {
         </header>
       </If>
 
-      <If test={!isLoggedIn}>
+      <If test={isLoggedIn}>
         <header className="main-header-nologged">
           <button className="toggle-button">
             <span className="toggle-button__bar" />

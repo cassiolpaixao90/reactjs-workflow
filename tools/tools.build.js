@@ -10,7 +10,7 @@ const {
 process.env.NODE_ENV = 'production';
 
 console.log(
-  messageProcessing('Generating minified bundle. This will take a moment...')
+  messageProcessing('Generating minified bundle. This will take a moment...'),
 );
 
 webpack(config).run((error, stats) => {
@@ -33,8 +33,8 @@ webpack(config).run((error, stats) => {
   console.log(`Webpack stats: ${stats}`);
   console.log(
     messageSuccess(
-      "Your app is compiled in production mode in /dist. It's ready to roll!"
-    )
+      "Your app is compiled in production mode in /dist. It's ready to roll!",
+    ),
   );
 
   return 0;

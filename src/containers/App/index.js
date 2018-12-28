@@ -12,16 +12,16 @@ const App = () => {
   const isLoggedIn = true;
   return (
     <React.Fragment>
-      <If test={!isLoggedIn}>
+      <If test={isLoggedIn}>
         <Header />
         <RouterApp />
       </If>
-      <If test={isLoggedIn}>
+      <If test={!isLoggedIn}>
         <div className="wrapper">
           <Header />
           <SideBar />
-          <RouterApp />
           <Footer />
+          <RouterApp />
         </div>
       </If>
     </React.Fragment>

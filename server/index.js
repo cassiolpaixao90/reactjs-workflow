@@ -24,12 +24,14 @@ app.get('*.js', (req, res, next) => {
   next();
 });
 
-app.listen(serverOptions.port, serverOptions.host, (err) => {
+app.listen(serverOptions.port, serverOptions.host, err => {
   if (err) {
     return messageError(err.message);
   }
   console.log(`
-    Localhost: ${chalk.magenta(`http://${serverOptions.host}:${serverOptions.port}`)}
+    Localhost: ${chalk.magenta(
+    `http://${serverOptions.host}:${serverOptions.port}`,
+  )}
     LAN: ${chalk.magenta(`http://${ip.address()}:${serverOptions.port}`)}
     ${chalk.green(`Press ${chalk.italic('CTRL-C')} to stop`)}
   `);
